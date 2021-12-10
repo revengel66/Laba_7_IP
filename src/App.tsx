@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
 import { Box, AppBar, Toolbar, Typography, Button, Container, Card, CardContent, CardMedia } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import { SignalWifiStatusbarConnectedNoInternet4Sharp } from '@mui/icons-material';
 const pages = ['Главная', 'Цены', 'Услуги','Контакты','+7(123)-456-78-90'];
 function App() {
   return (

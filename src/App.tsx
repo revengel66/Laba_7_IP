@@ -14,7 +14,6 @@ const getData = async () => {
 	return await fetch(`https://api.github.com/users/vladdy-moses/repos`)
 	.then(res => res.json())
 	.then((res: GithubRepo[]) => {
-		console.log(res);
 		return res;
 	})
 };

@@ -1,8 +1,32 @@
 import React from 'react';
+import { useEffect } from "react";
+import { useState } from 'react'; 
 import './App.css';
 import { Box, AppBar, Toolbar, Typography, Button, Container, Card, CardContent, CardMedia } from '@mui/material';
 const pages = ['Главная', 'Цены', 'Услуги','Контакты','+7(123)-456-78-90'];
-function App() {
+interface GithubRepo{
+	name: string;
+	describtion: string;
+	html_url: string;
+}
+const getData = async () => {
+	return await fetch(`https://api.github.com/users/vladdy-moses/repos`)
+	.then(res => res.json())
+	.then((res: GithubRepo[]) => {
+		return res;
+	})
+};
+function App(): JSX.Element {
+	
+	const [infoData, setData] = useState<GithubRepo[]>([]);
+
+	useEffect(() => {
+	  getData().then((res) => {
+		setData(res);
+	  });
+	}, []);
+
+
   return (
     <Box>
 		<Box sx={{
@@ -19,7 +43,7 @@ function App() {
 						<Box sx={{ flexGrow: 0, display: "flex", justifyContent: 'flex-end', width: "100%" }}>
 							{pages.map((page) => (
 							<Button
-								key={page}
+								key = {page}
 								sx={{ my: 2, color: "white", display: "block" }}
 							>
 								{page}
@@ -64,7 +88,7 @@ function App() {
 					gridGap: '30px'
 				}}>
 					<Card component="a" href="#" sx={{textDecoration:'none'}}>
-					<CardMedia
+						<CardMedia
 							component="img"
 							height="200px"
 							image="/images/s1.png"
@@ -80,7 +104,7 @@ function App() {
 						</CardContent>
 					</Card>
 					<Card component="a" href="#" sx={{textDecoration:'none'}}>
-					<CardMedia
+						<CardMedia
 							component="img"
 							height="200px"
 							image="/images/s2.png"
@@ -96,7 +120,7 @@ function App() {
 						</CardContent>
 					</Card>
 					<Card component="a" href="#" sx={{textDecoration:'none'}}>
-					<CardMedia
+						<CardMedia
 							component="img"
 							height="200px"
 							image="/images/s3.png"
@@ -111,6 +135,33 @@ function App() {
 							</Typography>
 						</CardContent>
 					</Card>
+				</Box>
+			</Container>
+		</Box>
+		<Box>
+			<Container>
+				<Box sx={{
+					display: 'grid',
+					gridTemplateColumns: 'repeat(2, 1fr)',
+					gridGap: '30px',
+					mb: '100px'
+				}}>
+					{infoData.map((repos) => (
+						<Card component="div" sx={{textDecoration:'none'}}>
+							<CardContent>
+								<Typography variant="h6" component="h6" sx={{fontWeight:'bold', mb:'10px'}}>
+									{repos.name}
+								</Typography>
+								<Typography component="div" sx={{fontSize:'16px', }}>
+									Описание репозитория:  {repos.describtion}
+								</Typography>
+								<Typography component="div" sx={{fontSize:'16px', }}>
+									Ссылка на репозиторий: {repos.html_url}
+								</Typography>
+							</CardContent>
+						</Card>
+					))}
+
 				</Box>
 			</Container>
 		</Box>

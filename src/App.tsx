@@ -10,6 +10,7 @@ interface GithubRepo{
 	description: string;
 	html_url: string;
 }
+const arrRepo: GithubRepo[] = [];
 const getData = async () => {
 	return await fetch(`https://api.github.com/users/vladdy-moses/repos`)
 	.then(res => res.json())
@@ -19,13 +20,12 @@ const getData = async () => {
 };
 function App(): JSX.Element {
 	
-	const [infoData, setData] = useState<GithubRepo[]>([]);
-
+	const [reposit, setData] = useState(arrRepo);
 	useEffect(() => {
 	  getData().then((res) => {
 		setData(res);
 	  });
-	}, []);
+	});
 
 
   return (
@@ -147,7 +147,7 @@ function App(): JSX.Element {
 					gridGap: '30px',
 					mb: '100px'
 				}}>
-					{infoData.map((repos, index) => (
+					{reposit.map((repos, index) => (
 						<Repos key={index} name={repos.name} description={repos.description} link={repos.html_url}/>
 					))}
 

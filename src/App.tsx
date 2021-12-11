@@ -3,16 +3,18 @@ import { useEffect } from "react";
 import { useState } from 'react'; 
 import './App.css';
 import { Box, AppBar, Toolbar, Typography, Button, Container, Card, CardContent, CardMedia } from '@mui/material';
+import Repos from './Repos'
 const pages = ['Главная', 'Цены', 'Услуги','Контакты','+7(123)-456-78-90'];
 interface GithubRepo{
 	name: string;
-	describtion: string;
+	description: string;
 	html_url: string;
 }
 const getData = async () => {
 	return await fetch(`https://api.github.com/users/vladdy-moses/repos`)
 	.then(res => res.json())
 	.then((res: GithubRepo[]) => {
+		console.log(res);
 		return res;
 	})
 };
@@ -146,20 +148,8 @@ function App(): JSX.Element {
 					gridGap: '30px',
 					mb: '100px'
 				}}>
-					{infoData.map((repos) => (
-						<Card component="div" sx={{textDecoration:'none'}}>
-							<CardContent>
-								<Typography variant="h6" component="h6" sx={{fontWeight:'bold', mb:'10px'}}>
-									{repos.name}
-								</Typography>
-								<Typography component="div" sx={{fontSize:'16px', }}>
-									Описание репозитория:  {repos.describtion}
-								</Typography>
-								<Typography component="div" sx={{fontSize:'16px', }}>
-									Ссылка на репозиторий: {repos.html_url}
-								</Typography>
-							</CardContent>
-						</Card>
+					{infoData.map((repos, index) => (
+						<Repos key={index} name={repos.name} description={repos.description} link={repos.html_url}/>
 					))}
 
 				</Box>

@@ -4,35 +4,14 @@ import { useState } from 'react';
 import './App.css';
 import { Card, CardContent, Typography } from '@mui/material';
 
-interface GithubRepo{
-	name: string;
-	describtion: string;
-	html_url: string;
-}
-const getData = async () => {
-	return await fetch(`https://api.github.com/users/vladdy-moses/repos`)
-	.then(res => res.json())
-	.then((res: GithubRepo[]) => {
-		return res;
-	})
-};
-
 interface ReposProps {
     name: string;
-    describtion: string;
+    description: string;
     link: string;
 }
-const [infoData, setData] = useState<GithubRepo[]>([]);
-
-	useEffect(() => {
-	  getData().then((res) => {
-		setData(res);
-	  });
-	}, []);
-
 var Repos = (props: ReposProps) => {
     var [name] = useState(props.name);  // И используем. Значение по умолчанию - 0.
-    var [describtion] = useState(props.describtion);
+    var [description] = useState(props.description);
     var [link] = useState(props.link);
     return(
         <Card component="div" sx={{textDecoration:'none'}}>
@@ -41,7 +20,7 @@ var Repos = (props: ReposProps) => {
                     {name}
                 </Typography>
                 <Typography component="div" sx={{fontSize:'16px', }}>
-                    Описание репозитория:{describtion}
+                    Описание репозитория:{description}
                 </Typography>
                 <Typography component="div" sx={{fontSize:'16px', }}>
                     Ссылка на репозиторий: {link}

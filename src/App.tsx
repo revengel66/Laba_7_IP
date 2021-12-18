@@ -18,7 +18,7 @@ const getData = async () => {
 		return res;
 	})
 };
-function App(): JSX.Element {
+function App() {
 	
 	const [reposit, setData] = useState(arrRepo);
 	useEffect(() => {
